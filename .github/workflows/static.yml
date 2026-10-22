@@ -20,6 +20,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
 
     steps:
@@ -29,39 +30,22 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+
+      - name: Verify Node and npm
+        run: |
+          node --version
+          npm --version
+          test -f package.json
 
       - name: Install dependencies
-        run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          elif [ -f package.json ]; then
-            npm install
-          else
-            echo "No package.json found."
-          fi
+        run: npm install --no-audit --no-fund
 
-      - name: Build
-        run: |
-          if [ -f package.json ]; then
-            npm run build
-          else
-            echo "No build required for static HTML."
-          fi
+      - name: Build website
+        run: npm run build
 
-      - name: Prepare website files
-        run: |
-          if [ -d dist ]; then
-            echo "Using dist directory."
-          elif [ -f index.html ]; then
-            echo "Using repository root."
-            mkdir -p dist
-            cp -r . dist/
-            rm -rf dist/.git dist/.github dist/node_modules
-          else
-            echo "ERROR: No dist directory or root index.html found."
-            exit 1
-          fi
+      - name: Verify build output
+        run: test -f dist/index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
