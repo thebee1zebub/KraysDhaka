@@ -50,11 +50,11 @@ export const BRAND_CONFIG: BrandConfig = {
 
 // Verified generated imagery paths
 export const IMAGES = {
-  hero: '/src/assets/images/hero_bespoke_suit_1792678536872.jpg',
-  craft: '/src/assets/images/tailor_craft_hands_1792678538745.jpg',
-  essential: '/src/assets/images/collection_essential_1792678538242.jpg',
-  signature: '/src/assets/images/collection_signature_1792678539721.jpg',
-  fitting: '/src/assets/images/lookbook_atelier_fitting_1792678539475.jpg',
+  hero: heroImage,
+  craft: craftImage,
+  essential: essentialImage,
+  signature: signatureImage,
+  fitting: fittingImage,
 };
 
 export const PRODUCTS: Product[] = [
